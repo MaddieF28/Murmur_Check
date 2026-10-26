@@ -1,0 +1,18 @@
+data/
+recordings/
+capture/*.pem
+.DS_Store
+__pycache__/
+capture/*.log
+.venv/
+ml/out/**/*.pt
+ml/out/**/*.onnx
+ml/out/**/*.onnx.data
+ml/out/probs_val_test.json
+capture/pc/
+tests/node_modules/
+CAC 2026 Heart App/
+*.log
+!models/*.pt
+!models/*.onnx
+ml/out/REPORT.md

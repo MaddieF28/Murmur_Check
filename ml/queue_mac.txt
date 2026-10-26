@@ -1,0 +1,7 @@
+# Mac screening runs (3 folds each), complementary to the PC queue.
+v2_extra aug=v2 extra=pascalb,zch folds=0,1,2
+v2_hi200 aug=v2 hi=200 bands=19 folds=0,1,2
+v2_hi150 aug=v2 hi=150 bands=14 folds=0,1,2
+v2_child aug=v2 labels=child folds=0,1,2
+v2_mixup aug=v2 mixup=0.4 folds=0,1,2
+v2_nocmn aug=v2 cmn=0 folds=0,1,2

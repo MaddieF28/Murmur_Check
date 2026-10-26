@@ -1,0 +1,31 @@
+{
+  "model": "pc5_v2_gru_noise",
+  "cutoff": 0.5659380555152893,
+  "tested_on": "650 children from the CirCor collection in Brazil",
+  "every_child": {
+    "name": "All",
+    "children": 650,
+    "murmur_children": 134,
+    "sensitivity": 0.8881,
+    "specificity": 0.9477,
+    "accuracy": 0.9354
+  },
+  "groups": [
+    {
+      "name": "Cross-validation children",
+      "children": 554,
+      "murmur_children": 113,
+      "sensitivity": 0.8938,
+      "specificity": 0.9524,
+      "accuracy": 0.9404
+    },
+    {
+      "name": "Set-aside test children, scored once at the end",
+      "children": 96,
+      "murmur_children": 21,
+      "sensitivity": 0.8571,
+      "specificity": 0.92,
+      "accuracy": 0.9062
+    }
+  ]
+}

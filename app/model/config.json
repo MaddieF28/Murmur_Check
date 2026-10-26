@@ -1,0 +1,7 @@
+{
+  "threshold": 0.5659380555152893,
+  "sample_rate": 4000,
+  "window": 16000,
+  "hop": 8000,
+  "skip_seconds": 2
+}

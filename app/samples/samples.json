@@ -1,0 +1,10 @@
+{
+  "murmur": {
+    "child": "CirCor child 85002",
+    "source": "CirCor DigiScope Phonocardiogram Dataset, PhysioNet (ODC-By 1.0)"
+  },
+  "normal": {
+    "child": "CirCor child 85235",
+    "source": "CirCor DigiScope Phonocardiogram Dataset, PhysioNet (ODC-By 1.0)"
+  }
+}

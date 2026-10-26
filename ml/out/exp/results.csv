@@ -1,0 +1,2 @@
+name,folds,minutes,cv_clean,cv_phone_v1,cv_phone_v1_allspots,cv_phone_v1_recordings,pascal,me_top,me_bottom,me_pec,settings
+base,"0,1,2",13.3,0.9673,0.9512,0.9414,0.9414,0.6817,0.584,0.119,0.156,"{""folds"": ""0,1,2""}"

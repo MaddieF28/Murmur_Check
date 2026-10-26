@@ -1,0 +1,11 @@
+{
+  "name": "murmur-check-tests",
+  "private": true,
+  "description": "End-to-end check of the Murmur Check web app in headless Chrome",
+  "scripts": {
+    "test": "node app.test.js"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.16.0"
+  }
+}

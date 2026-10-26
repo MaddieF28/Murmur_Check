@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- mic only works on https -->
+<script>if (location.protocol === "http:" && !/^(localhost|127\.)/.test(location.hostname)) location.replace("https:" + location.href.slice(5));</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#b3261e">
+<title>Murmur Check</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23b3261e' d='M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.8 4.2 7.3C19.5 16.4 12 21 12 21z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/ort.wasm.min.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body data-screen="home">
+<header>
+  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.8 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg>
+  <span>Murmur Check</span>
+</header>
+
+<main>
+  <section id="home" class="screen active">
+    <div class="cover">
+      <h1><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.6.8-1.4 2.3-2.6 4.4-2.6 3.6 0 5.7 3.8 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg>Murmur Check</h1>
+      <figure class="sweep">
+        <div class="trace">
+          <svg viewBox="0 0 360 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0.5 49.1V51.8M1.5 46.8V52.4M2.5 48.6V51.9M3.5 45.6V50.3M4.5 47.7V55.4M5.5 48.2V53.2M6.5 47.3V51.6M7.5 48.0V52.3M8.5 48.1V50.8M9.5 48.2V54.3M10.5 49.5V53.1M11.5 46.0V52.0M12.5 44.7V50.2M13.5 50.5V54.3M14.5 46.3V51.7M15.5 48.7V51.9M16.5 47.5V52.0M17.5 47.1V51.9M18.5 48.1V50.4M19.5 47.7V51.4M20.5 50.0V52.9M21.5 50.2V51.8M22.5 46.1V52.0M23.5 41.7V45.1M24.5 37.5V71.0M25.5 54.4V71.2M26.5 25.2V57.5M27.5 28.1V42.3M28.5 44.6V90.0M29.5 7.2V85.7M30.5 6.5V69.8M31.5 52.7V70.5M32.5 36.9V49.9M33.5 47.9V60.5M34.5 4.0V75.3M35.5 4.5V69.5M36.5 31.1V58.5M37.5 30.8V58.6M38.5 30.6V67.3M39.5 24.5V71.0M40.5 28.1V81.4M41.5 38.7V83.3M42.5 19.8V71.5M43.5 34.5V56.2M44.5 41.0V72.8M45.5 32.0V74.4M46.5 28.1V79.2M47.5 13.7V77.8M48.5 25.8V72.2M49.5 27.0V65.8M50.5 31.9V63.3M51.5 34.8V63.2M52.5 36.2V74.8M53.5 35.0V55.8M54.5 26.4V70.9M55.5 26.5V62.9M56.5 38.3V63.2M57.5 44.0V51.9M58.5 45.6V54.0M59.5 42.1V54.4M60.5 46.1V56.9M61.5 45.7V54.1M62.5 43.0V55.2M63.5 48.0V55.9M64.5 46.9V54.7M65.5 45.3V52.4M66.5 48.8V53.8M67.5 47.2V49.9M68.5 44.5V54.6M69.5 46.0V49.7M70.5 49.0V57.3M71.5 4.0V86.0M72.5 31.8V65.6M73.5 26.2V73.6M74.5 25.6V60.4M75.5 47.9V60.7M76.5 47.6V54.3M77.5 47.6V53.3M78.5 46.3V51.7M79.5 48.7V52.3M80.5 47.4V53.0M81.5 46.2V49.5M82.5 48.5V53.3M83.5 48.9V53.3M84.5 49.2V53.0M85.5 48.6V52.4M86.5 47.8V51.2M87.5 48.2V50.8M88.5 48.3V54.9M89.5 43.5V55.4M90.5 47.0V50.5M91.5 48.3V50.6M92.5 46.8V51.0M93.5 50.5V53.8M94.5 43.7V57.3M95.5 37.5V55.1M96.5 48.4V58.3M97.5 43.6V51.2M98.5 48.1V52.1M99.5 49.0V52.3M100.5 50.0V52.4M101.5 48.3V51.6M102.5 43.2V52.9M103.5 47.9V51.0M104.5 46.9V53.1M105.5 50.2V54.5M106.5 47.8V53.1M107.5 48.4V50.9M108.5 48.7V50.3M109.5 47.3V51.3M110.5 46.0V51.9M111.5 49.8V52.1M112.5 48.7V52.8M113.5 46.9V50.9M114.5 48.7V52.6M115.5 45.5V52.2M116.5 47.1V50.0M117.5 50.6V55.9M118.5 48.1V56.2M119.5 44.1V49.1M120.5 40.9V43.7M121.5 39.9V77.9M122.5 53.8V70.1M123.5 18.7V54.6M124.5 23.2V57.9M125.5 62.8V96.0M126.5 14.5V61.1M127.5 14.7V63.1M128.5 50.3V64.5M129.5 42.8V53.5M130.5 50.0V52.3M131.5 41.6V51.9M132.5 40.7V54.6M133.5 30.9V69.4M134.5 36.9V69.4M135.5 37.9V56.8M136.5 29.8V69.1M137.5 39.1V82.0M138.5 32.8V66.7M139.5 33.0V54.9M140.5 23.1V96.0M141.5 13.1V96.0M142.5 26.6V51.2M143.5 31.1V66.8M144.5 21.4V83.6M145.5 21.6V65.6M146.5 35.4V68.8M147.5 31.6V69.5M148.5 38.6V65.4M149.5 18.2V67.1M150.5 12.7V73.2M151.5 48.2V72.6M152.5 19.4V72.5M153.5 50.1V66.9M154.5 27.4V61.0M155.5 43.2V67.0M156.5 45.8V59.3M157.5 42.0V60.4M158.5 44.5V60.9M159.5 35.0V53.5M160.5 49.3V62.0M161.5 41.4V58.6M162.5 52.4V57.0M163.5 43.1V52.1M164.5 48.8V53.0M165.5 48.3V52.3M166.5 43.4V51.7M167.5 46.9V54.6M168.5 43.4V52.0M169.5 50.2V64.5M170.5 42.2V67.3M171.5 4.0V69.0M172.5 37.3V52.6M173.5 49.7V69.8M174.5 43.7V54.5M175.5 44.7V53.9M176.5 47.0V52.2M177.5 40.7V51.7M178.5 40.4V55.7M179.5 48.2V55.5M180.5 47.3V53.2M181.5 46.4V54.8M182.5 46.9V52.8M183.5 48.2V50.0M184.5 48.6V50.5M185.5 46.5V52.2M186.5 47.8V55.4M187.5 46.2V51.3M188.5 47.3V54.9M189.5 46.7V52.6M190.5 47.6V51.6M191.5 45.4V58.7M192.5 43.5V52.6M193.5 45.2V48.5M194.5 48.6V51.6M195.5 51.2V56.8M196.5 47.1V52.3M197.5 45.3V52.5M198.5 47.4V52.0M199.5 45.9V55.6M200.5 47.2V53.8M201.5 43.3V60.7M202.5 40.7V57.2M203.5 45.2V53.3M204.5 45.7V54.9M205.5 46.6V55.7M206.5 43.7V55.8M207.5 39.9V56.2M208.5 44.2V56.7M209.5 35.7V58.4M210.5 42.2V63.2M211.5 42.8V52.8M212.5 42.0V55.9M213.5 48.9V55.2M214.5 45.9V57.0M215.5 43.9V57.0M216.5 42.6V58.4M217.5 41.5V51.6M218.5 39.4V49.4M219.5 49.4V71.7M220.5 43.8V66.5M221.5 14.0V42.2M222.5 25.3V59.3M223.5 62.9V77.4M224.5 21.5V66.3M225.5 16.2V57.1M226.5 57.0V73.0M227.5 40.1V57.7M228.5 44.5V58.9M229.5 51.0V58.0M230.5 38.4V50.3M231.5 36.0V69.4M232.5 42.7V67.8M233.5 31.5V53.1M234.5 43.3V76.2M235.5 29.4V64.3M236.5 26.5V55.1M237.5 38.0V86.0M238.5 38.6V63.7M239.5 33.8V55.0M240.5 44.7V74.1M241.5 32.5V61.7M242.5 16.5V73.0M243.5 32.5V90.0M244.5 18.2V60.5M245.5 42.6V62.0M246.5 30.7V60.9M247.5 41.9V59.9M248.5 35.2V62.5M249.5 42.6V61.1M250.5 43.1V59.9M251.5 35.1V60.8M252.5 31.8V69.2M253.5 43.7V61.1M254.5 43.8V60.9M255.5 41.6V67.2M256.5 38.8V52.9M257.5 43.4V58.8M258.5 48.0V57.0M259.5 45.4V56.7M260.5 40.5V59.9M261.5 38.5V57.5M262.5 43.7V54.7M263.5 41.2V65.6M264.5 41.8V56.7M265.5 41.4V58.1M266.5 44.8V62.9M267.5 47.1V96.0M268.5 4.0V57.1M269.5 30.6V61.0M270.5 46.8V74.7M271.5 42.5V59.5M272.5 35.3V57.7M273.5 45.4V66.8M274.5 43.0V52.1M275.5 48.0V55.3M276.5 47.2V54.3M277.5 46.7V54.9M278.5 45.8V50.8M279.5 46.4V51.7M280.5 47.5V53.3M281.5 45.6V52.2M282.5 49.0V53.4M283.5 48.5V53.3M284.5 47.7V50.2M285.5 46.3V53.3M286.5 43.1V54.4M287.5 46.6V54.7M288.5 44.2V50.6M289.5 46.7V54.9M290.5 45.6V51.8M291.5 51.1V52.5M292.5 48.7V53.1M293.5 41.8V51.3M294.5 42.2V54.1M295.5 47.1V51.0M296.5 49.1V54.3M297.5 47.6V51.3M298.5 46.5V55.4M299.5 46.1V54.0M300.5 48.9V52.0M301.5 47.9V51.3M302.5 47.0V51.9M303.5 45.5V53.1M304.5 49.1V51.4M305.5 48.6V51.6M306.5 50.2V52.1M307.5 47.8V50.9M308.5 47.8V49.6M309.5 47.6V49.3M310.5 49.9V52.9M311.5 52.3V54.7M312.5 47.6V53.7M313.5 35.2V47.0M314.5 36.3V64.9M315.5 60.5V81.1M316.5 23.3V59.0M317.5 20.8V50.7M318.5 45.4V62.3M319.5 61.9V77.3M320.5 14.8V57.5M321.5 30.9V68.4M322.5 42.7V63.3M323.5 43.1V52.6M324.5 48.8V52.3M325.5 44.0V52.9M326.5 43.2V57.6M327.5 48.5V61.2M328.5 37.1V61.4M329.5 46.0V57.4M330.5 36.3V59.8M331.5 34.8V70.4M332.5 25.4V82.9M333.5 21.9V81.2M334.5 27.8V65.2M335.5 33.5V64.5M336.5 32.9V82.5M337.5 28.8V55.5M338.5 26.5V90.7M339.5 40.0V68.0M340.5 25.9V71.6M341.5 32.0V58.8M342.5 41.3V63.0M343.5 44.1V54.3M344.5 32.5V55.4M345.5 44.0V59.4M346.5 39.4V54.8M347.5 38.9V60.2M348.5 49.7V55.8M349.5 38.7V57.1M350.5 45.1V56.8M351.5 46.4V54.7M352.5 40.4V54.1M353.5 45.7V59.7M354.5 45.3V58.6M355.5 44.4V56.0M356.5 45.7V56.6M357.5 43.6V52.5M358.5 48.7V59.0M359.5 46.6V54.4"/></svg>
+          <span class="mark" style="left:34%">lub</span><span class="mark" style="left:48%">dub</span>
+          <span class="whoosh" style="left:36.5%;width:10%"><span>whoosh</span></span>
+        </div>
+        <figcaption>A murmur is an extra whooshing sound between heartbeats. This is a real recording.</figcaption>
+      </figure>
+      <div class="cover-end">
+        <p class="cover-lead">Hold a phone to your chest. In one minute, find out if you should get a full heart workup.</p>
+        <button class="primary" data-action="start">Start</button>
+        <p class="cover-links"><a href="#" data-go="samples">Try a sample recording</a><a href="#" data-go="about">How it works</a></p>
+        <p class="fine">*Not medical advice or a diagnosis. To be safe, get a full heart workup.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="before" class="screen">
+    <h2>Before you start</h2>
+    <p>This check is meant for children and teens. It records 15 seconds of audio at three spots on the chest.</p>
+    <svg class="hold" viewBox="0 0 240 96" role="img" aria-label="Side view: the bottom edge of the phone pressed against the chest">
+      <path class="body" d="M0,0 L71,0 L71,96 L0,96 Z"/>
+      <g transform="translate(73,48) rotate(80)">
+        <rect class="phone" x="-12" y="-100" width="24" height="100" rx="5"/>
+        <line class="edge" x1="-11" y1="0" x2="11" y2="0"/>
+      </g>
+      <text class="phone-label" x="122" y="42" transform="rotate(-10 122 42)">phone</text>
+      <path class="lead" d="M80,58 L102,74"/>
+      <text x="105" y="78">Bottom edge, where the</text>
+      <text x="105" y="89">microphone is, on bare skin</text>
+      <path class="arrow" d="M178,10 L116,21 M124,15 L116,21 L125,26"/>
+      <text x="182" y="13">press</text>
+    </svg>
+    <p class="case-note">*Take off your phone case for an accurate prediction.</p>
+    <ol class="tips">
+      <li>Press firmly on bare skin.</li>
+      <li>Don't talk or move. Sit still.</li>
+    </ol>
+    <p class="warn">If you are seriously concerned about someone's heart, get medical help now.</p>
+    <p class="fine">*Not medical advice or a diagnosis. To be safe, get a full heart workup.</p>
+    <button class="primary" data-action="begin">Continue</button>
+    <button class="ghost" data-go="home">Back</button>
+  </section>
+
+  <section id="spot" class="screen">
+    <p id="spot-done" class="done-note"></p>
+    <p class="step">Step <span id="step-n">1</span> of 3</p>
+    <h2 id="spot-title"></h2>
+    <svg class="diagram" viewBox="0 0 240 258" role="img" aria-label="Where to place the phone: three spots on the left side of the chest">
+      <path class="body" d="M100,4 L100,30 C80,34 52,38 34,48 C24,54 20,66 22,80 L32,254 L208,254 L218,80 C220,66 216,54 206,48 C188,38 160,34 140,30 L140,4"/>
+      <g class="ribs">
+        <path d="M109,72 Q80,66 44,86 M131,72 Q160,66 196,86"/>
+        <path d="M109,88 Q80,82 42,104 M131,88 Q160,82 198,104"/>
+        <path d="M109,104 Q80,98 42,122 M131,104 Q160,98 198,122"/>
+        <path d="M110,120 Q82,114 44,140 M130,120 Q158,114 196,140"/>
+        <path d="M111,136 Q84,132 48,158 M129,136 Q156,132 192,158"/>
+      </g>
+      <path class="margin" d="M117,160 Q98,182 76,206 M123,160 Q142,182 164,206"/>
+      <path class="bone" d="M116,47 C100,41 74,41 48,51 M124,47 C140,41 166,41 192,51"/>
+      <path class="sternum" d="M110,48 L130,48 L132,70 L128,150 L120,163 L112,150 L108,70 Z"/>
+      <g class="labels">
+        <path d="M66,46 L58,62"/><text x="34" y="70">collarbone</text>
+        <path d="M107,96 L84,104"/><text x="34" y="113">breastbone</text>
+        <path d="M118,168 L106,215"/><text x="60" y="226">bottom of the</text><text x="60" y="236">ribcage (the V)</text>
+      </g>
+      <g class="spot" data-spot="0" transform="translate(140,64)"><circle class="ring" r="9"/><circle class="dot" r="8"/><text y="3.2">1</text></g>
+      <g class="spot" data-spot="1" transform="translate(137,138)"><circle class="ring" r="9"/><circle class="dot" r="8"/><text y="3.2">2</text></g>
+      <g class="spot" data-spot="2" transform="translate(166,151)"><circle class="ring" r="9"/><circle class="dot" r="8"/><text y="3.2">3</text></g>
+      <text class="side" x="36" y="249">Right</text>
+      <text class="side" x="204" y="249" text-anchor="end">Left</text>
+    </svg>
+    <p id="spot-text" class="spot-text"></p>
+    <p id="mic-error" class="error"></p>
+    <button class="primary" data-action="record">Record</button>
+    <button class="ghost" data-go="home">Cancel</button>
+  </section>
+
+  <section id="recording" class="screen">
+    <p id="rec-step" class="step"></p>
+    <h2 id="rec-title">Place the phone and hold still</h2>
+    <div class="rec-count"><div id="countdown"></div><div id="count-label"></div></div>
+    <div class="live"><canvas id="live"></canvas><span class="axis high">high pitch</span><span class="axis low">low</span></div>
+    <div class="bar"><div id="progress"></div></div>
+    <p id="beat" class="beat"><span class="pulse"></span><span id="beat-text"></span></p>
+    <button class="ghost" data-action="cancel">Cancel</button>
+  </section>
+
+  <section id="busy" class="screen">
+    <div class="spinner"></div>
+    <p class="center">Listening for a murmur…</p>
+  </section>
+
+  <section id="unclear" class="screen">
+    <p id="unclear-step" class="step"></p>
+    <h2>Couldn't hear a clear heartbeat</h2>
+    <p>Rather than guess, let's record this spot again.</p>
+    <ul class="tips">
+      <li>Press the bottom edge of the phone firmly against bare skin</li>
+      <li>Move it a little closer to the breastbone</li>
+      <li>Stay still, and don't talk while recording</li>
+    </ul>
+    <button class="primary" data-action="retry">Record again</button>
+    <button class="ghost" data-go="home">Cancel</button>
+  </section>
+
+  <section id="result" class="screen">
+    <div id="result-card" class="card">
+      <h2 id="result-title"></h2>
+      <p id="result-where" class="where"></p>
+      <p id="result-text"></p>
+    </div>
+    <p id="result-note" class="fine"></p>
+    <button class="secondary" data-action="share">Save or share this result</button>
+
+    <h3>AI Breakdown</h3>
+    <p class="hint">Each heat map is what the AI looks at. Every heartbeat makes two bright stripes, and a murmur glows in the gap between them. The white line is the sound wave. Press play to watch them move with the sound.</p>
+    <div id="result-spots"></div>
+
+    <h3>How this result was checked</h3>
+    <ul class="checks">
+      <li>Everything ran on this phone. The recordings were never uploaded.</li>
+      <li>A score of 50 or more at any one spot means we advise you to get an echocardiogram.</li>
+    </ul>
+    <p class="fine">Listen with headphones: phone speakers can't play the low sounds of a heartbeat.</p>
+    <button class="primary" data-go="home">Done</button>
+  </section>
+
+  <section id="samples" class="screen">
+    <h2>Try a sample</h2>
+    <p>Two clear examples from a children's heart study: real children recorded with a digital stethoscope at the same three spots this app uses. The AI learned from these recordings too, so they show how the app works, not how accurate it is.</p>
+    <button class="secondary" data-sample="murmur">Child with a murmur</button>
+    <button class="secondary" data-sample="normal">Child without a murmur</button>
+    <button class="ghost" data-go="home">Back</button>
+  </section>
+
+  <section id="about" class="screen">
+    <h2>How it works</h2>
+    <ol>
+      <li>You record the heart for 15 seconds at three spots: the top and bottom of the breastbone, and under the chest muscle. The AI learned from CirCor, a public collection of heart recordings from about 1,500 children in Brazil, recorded with a digital stethoscope.</li>
+      <li>The app checks that each recording holds a steady heartbeat and is mostly heart sound. If it doesn't, the app asks you to record again instead of guessing.</li>
+      <li>It turns each recording into a picture of how loud each pitch is over time, the heat map on the results screen. Five small neural networks look at that picture for the sound of a murmur, and their answers are averaged. If any spot scores past the line, the app says to get an echocardiogram.</li>
+      <li>A phone hears the heart differently from a stethoscope, muffling the higher sounds. We recorded hearts with phones, measured how much they muffle each pitch, and changed the stethoscope recordings to sound the same way. The networks learned from those changed recordings, so they work from a phone's microphone.</li>
+      <li>Everything runs on this phone. Recordings are never uploaded.</li>
+    </ol>
+
+    <h3>How well it works</h3>
+    <p id="about-results">Loading…</p>
+
+    <h3>Safeguards</h3>
+    <ul class="checks">
+      <li>It won't score a recording it can't hear clearly. It asks for a new one instead.</li>
+      <li>One recording that sounds like a murmur is enough to recommend getting an echocardiogram.</li>
+      <li>It reports "no murmur heard", not that the heart is healthy, because a recording can miss other heart problems.</li>
+      <li>All your information is safe, and no information leaves the phone.</li>
+    </ul>
+
+    <h3>How it compares</h3>
+    <p>Previous ways to detect heart murmurs from heart sounds cost up to $500, like Eko's digital stethoscope, and need a trained doctor. Murmur Check is free, runs on your own phone, and is built for children. It lets people with no medical training check for a heart murmur in about a minute. Everything runs on the phone, so once the page is open it needs no internet.</p>
+    <p>The model is tiny: this 3 MB model is as accurate as a published 87-million-parameter model at two U.S. children's heart clinics, while being about 150 times smaller.</p>
+
+    <h3>Disclaimer</h3>
+    <p>This is not a medical diagnosis and should not be taken as medical advice. It can miss heart problems, and it is still safest to see a doctor.</p>
+    <p class="fine">Data: CirCor DigiScope Phonocardiogram Dataset (Oliveira et al., 2022; PhysioNet, ODC-By 1.0).</p>
+    <button class="ghost" data-go="home">Back</button>
+  </section>
+</main>
+
+<dialog id="mic-dialog">
+  <h2 id="mic-title"></h2>
+  <p id="mic-text"></p>
+  <p id="mic-detail" class="fine"></p>
+  <button class="primary" id="mic-retry" data-action="mic-retry">Try again</button>
+  <button class="ghost" data-action="mic-close">Cancel</button>
+</dialog>
+</body>
+</html>

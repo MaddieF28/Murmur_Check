@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>if (location.protocol === "http:" && !/^(localhost|127\.)/.test(location.hostname)) location.replace("https:" + location.href.slice(5));</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heart Capture Test</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 16px; max-width: 640px; margin-inline: auto; background: #fafafa; color: #222; }
+  h1 { font-size: 1.3rem; margin: 0 0 8px; }
+  .tips { font-size: .9rem; color: #555; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px 12px; }
+  label { display: block; font-size: .9rem; margin-top: 10px; }
+  select, button { font-size: 1rem; padding: 10px; border-radius: 8px; width: 100%; margin-top: 4px; }
+  button { background: #c62828; color: #fff; border: 0; font-weight: 600; }
+  button.secondary { background: #555; }
+  button:disabled { opacity: .5; }
+  canvas { width: 100%; height: 120px; background: #fff; border: 1px solid #ddd; border-radius: 8px; margin-top: 8px; }
+  #status { font-size: 1.1rem; font-weight: 600; margin-top: 12px; text-align: center; }
+  pre { font-size: .8rem; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 8px; white-space: pre-wrap; }
+  .row { display: flex; gap: 8px; } .row > * { flex: 1; }
+  .cap { font-size: .75rem; color: #777; margin: 2px 0 0; }
+  :root { --brand: #b3261e; --muted: #6b6461; }
+  #spot-text { font-size: .95rem; margin: 6px 0 0; }
+  .diagram { width: 100%; max-height: 300px; display: block; margin: 10px auto 4px; }
+  .body { fill: #f1e8e2; stroke: #c9b8ad; stroke-width: 2; }
+  .diagram .ribs path { fill: none; stroke: #e6d8cd; stroke-width: 4; stroke-linecap: round; }
+  .diagram .margin { fill: none; stroke: #cbb6a8; stroke-width: 3; stroke-linecap: round; }
+  .diagram .bone { fill: none; stroke: #b9a597; stroke-width: 4; stroke-linecap: round; }
+  .diagram .sternum { fill: #e0cfc2; stroke: #c4ae9f; stroke-width: 1.5; }
+  .diagram .nipple { fill: #c9a99a; }
+  .diagram .labels path, .hold .lead { fill: none; stroke: #9c8a7e; stroke-width: 1; }
+  .diagram text, .hold text { font-size: 8.5px; fill: var(--muted); }
+  .diagram .spot .dot { fill: var(--brand); }
+  .diagram .spot .ring { fill: none; stroke: var(--brand); stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: pulse 1.4s ease-out infinite; }
+  .diagram .spot:not(.current) .dot { fill: #fff; stroke: #b9a597; stroke-width: 1.5; stroke-dasharray: 3 2; }
+  .diagram .spot:not(.current) .ring { display: none; }
+  @keyframes pulse { from { transform: scale(1); opacity: .9; } to { transform: scale(2.2); opacity: 0; } }
+  .hold { width: 100%; max-height: 120px; display: block; margin: 6px auto 0; }
+  .hold .phone { fill: #2f2826; }
+  .hold .screen { fill: #5a4e49; }
+  .hold .edge { stroke: var(--brand); stroke-width: 4; stroke-linecap: round; }
+  .hold .arrow { fill: none; stroke: var(--brand); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<h1>Heart Capture Test</h1>
+<div class="tips">
+  Quiet room. Press the <b>bottom edge of the phone</b> (where the mic is) firmly on <b>bare skin</b>.
+  Breathe out and hold still. Use <b>headphones</b> to listen back, since phone speakers can't play heart sounds.
+</div>
+
+<label>Spot
+  <select id="spot">
+    <option value="PV">Top of the breastbone</option>
+    <option value="TV">Bottom of the breastbone</option>
+    <option value="MV">Under the left pec</option>
+    <option value="THIGH">Thigh (no heart, for noise)</option>
+    <option value="AIR">Held in the air (no contact)</option>
+  </select>
+</label>
+<label>Whose heart
+  <select id="person">
+    <option value="me">Me</option>
+    <option value="fam1">Family member 1</option>
+    <option value="fam2">Family member 2</option>
+    <option value="fam3">Family member 3</option>
+  </select>
+</label>
+<label>Position
+  <select id="position">
+    <option value="sit">Sitting</option>
+    <option value="lie">Lying on back</option>
+    <option value="exercise">Sitting, right after 30 jumping jacks</option>
+  </select>
+</label>
+<svg class="diagram" viewBox="0 0 240 258" role="img" aria-label="Where to place the phone">
+  <path class="body" d="M100,4 L100,30 C80,34 52,38 34,48 C24,54 20,66 22,80 L32,254 L208,254 L218,80 C220,66 216,54 206,48 C188,38 160,34 140,30 L140,4"/>
+  <g class="ribs">
+    <path d="M109,72 Q80,66 44,86 M131,72 Q160,66 196,86"/>
+    <path d="M109,88 Q80,82 42,104 M131,88 Q160,82 198,104"/>
+    <path d="M109,104 Q80,98 42,122 M131,104 Q160,98 198,122"/>
+    <path d="M110,120 Q82,114 44,140 M130,120 Q158,114 196,140"/>
+    <path d="M111,136 Q84,132 48,158 M129,136 Q156,132 192,158"/>
+  </g>
+  <path class="margin" d="M117,160 Q98,182 76,206 M123,160 Q142,182 164,206"/>
+  <path class="bone" d="M116,47 C100,41 74,41 48,51 M124,47 C140,41 166,41 192,51"/>
+  <path class="sternum" d="M110,48 L130,48 L132,70 L128,150 L120,163 L112,150 L108,70 Z"/>
+  <circle class="nipple" cx="76" cy="130" r="3.5"/><circle class="nipple" cx="164" cy="130" r="3.5"/>
+  <g class="labels">
+    <path d="M66,46 L58,62"/><text x="34" y="70">collarbone</text>
+    <path d="M107,96 L84,104"/><text x="34" y="113">breastbone</text>
+    <path d="M118,168 L106,215"/><text x="60" y="226">bottom of the</text><text x="60" y="236">ribcage (the V)</text>
+  </g>
+  <g class="spot" data-spot="PV" transform="translate(140,64)"><circle class="ring" r="9"/><circle class="dot" r="8"/></g>
+  <g class="spot" data-spot="TV" transform="translate(137,138)"><circle class="ring" r="9"/><circle class="dot" r="8"/></g>
+  <g class="spot" data-spot="MV" transform="translate(166,151)"><circle class="ring" r="9"/><circle class="dot" r="8"/></g>
+  <text x="36" y="249">Body's right</text>
+  <text x="204" y="249" text-anchor="end">Body's left (heart side)</text>
+</svg>
+<p id="spot-text"></p>
+<svg class="hold" viewBox="0 0 240 96" role="img" aria-label="Side view: the bottom edge of the phone pressed against the chest">
+  <path class="body" d="M0,0 L54,0 C76,22 80,64 58,96 L0,96 Z"/>
+  <g transform="translate(73,48) rotate(80)">
+    <rect class="phone" x="-12" y="-100" width="24" height="100" rx="5"/>
+    <rect class="screen" x="-9" y="-95" width="18" height="90" rx="3"/>
+    <line class="edge" x1="-11" y1="0" x2="11" y2="0"/>
+  </g>
+  <path class="lead" d="M80,58 L102,74"/>
+  <text x="105" y="78">Bottom edge, where the</text>
+  <text x="105" y="89">microphone is, on bare skin</text>
+  <path class="arrow" d="M178,10 L116,21 M124,15 L116,21 L125,26"/>
+  <text x="182" y="13">press</text>
+</svg>
+<label>Method
+  <select id="method">
+    <option value="bare">Bare phone on skin</option>
+    <option value="shirt">Phone over a thin shirt</option>
+    <option value="steth">Stethoscope tube to mic</option>
+  </select>
+</label>
+<label>Length
+  <select id="secs">
+    <option value="30" selected>30 seconds</option>
+    <option value="15">15 seconds</option>
+    <option value="10">10 seconds</option>
+  </select>
+</label>
+
+<button id="rec">Record</button>
+<div id="status"></div>
+
+<canvas id="live"></canvas><p class="cap">Live, filtered 25–400 Hz</p>
+<canvas id="filt"></canvas><p class="cap">Recording, filtered 25–400 Hz (beats should look like evenly spaced spikes)</p>
+<canvas id="env"></canvas><p class="cap">Beat envelope</p>
+
+<div class="row">
+  <button id="play" class="secondary" disabled>Play (boosted)</button>
+  <button id="save" class="secondary" disabled>Send to Mac</button>
+</div>
+<pre id="report"></pre>
+
+<script>
+const $ = id => document.getElementById(id);
+let ctx, stream, chunks = [], recording = null, sampleRate = 48000, settings = {};
+
+function drawWave(canvas, data, color = '#c62828') {
+  const c = canvas, g = c.getContext('2d');
+  c.width = c.clientWidth * devicePixelRatio;
+  c.height = c.clientHeight * devicePixelRatio;
+  g.clearRect(0, 0, c.width, c.height);
+  let max = 1e-9;
+  for (let i = 0; i < data.length; i++) max = Math.max(max, Math.abs(data[i]));
+  const step = Math.max(1, Math.floor(data.length / c.width)), mid = c.height / 2;
+  g.strokeStyle = color;
+  g.beginPath();
+  for (let x = 0; x < c.width; x++) {
+    let lo = 0, hi = 0;
+    for (let i = x * step; i < (x + 1) * step && i < data.length; i++) {
+      lo = Math.min(lo, data[i]);
+      hi = Math.max(hi, data[i]);
+    }
+    g.moveTo(x, mid - hi / max * mid);
+    g.lineTo(x, mid - lo / max * mid);
+  }
+  g.stroke();
+}
+
+// 25-400 Hz, each filter twice for a sharper cutoff
+async function bandpass(data, sr) {
+  const off = new OfflineAudioContext(1, data.length, sr);
+  const buf = off.createBuffer(1, data.length, sr);
+  buf.copyToChannel(data, 0);
+  const src = off.createBufferSource();
+  src.buffer = buf;
+  let node = src;
+  for (const [type, f] of [['highpass', 25], ['highpass', 25], ['lowpass', 400], ['lowpass', 400]]) {
+    const b = off.createBiquadFilter();
+    b.type = type;
+    b.frequency.value = f;
+    node.connect(b);
+    node = b;
+  }
+  node.connect(off.destination);
+  src.start();
+  return (await off.startRendering()).getChannelData(0);
+}
+
+function analyze(filtered, sr) {
+  const hop = Math.round(sr / 100), env = [];
+  for (let i = 0; i + hop <= filtered.length; i += hop) {
+    let s = 0;
+    for (let j = i; j < i + hop; j++) s += filtered[j] * filtered[j];
+    env.push(Math.sqrt(s / hop));
+  }
+  const sm = env.map((_, i) => {
+    let s = 0, n = 0;
+    for (let k = Math.max(0, i - 3); k <= Math.min(env.length - 1, i + 3); k++) {
+      s += env[k];
+      n++;
+    }
+    return s / n;
+  });
+  const tail = sm.slice(200), cap = [...tail].sort((a, b) => a - b)[Math.floor(tail.length * 0.95)];
+  const e = tail.map(v => Math.min(v, cap)),
+    mean = e.reduce((a, b) => a + b, 0) / e.length,
+    z = e.map(v => v - mean);
+  const r0 = z.reduce((a, v) => a + v * v, 0) || 1;
+  // lags of 33-150 (x10 ms) = 40-180 bpm
+  let best = 0, bestLag = 0;
+  for (let lag = 33; lag <= 150; lag++) {
+    let s = 0;
+    for (let i = 0; i + lag < z.length; i++) s += z[i] * z[i + lag];
+    if (s / r0 > best) {
+      best = s / r0;
+      bestLag = lag;
+    }
+  }
+  return { env: Float32Array.from(sm), bpm: bestLag ? 6000 / bestLag : 0, periodicity: best };
+}
+
+function rms(a) {
+  let s = 0;
+  for (const v of a) s += v * v;
+  return Math.sqrt(s / a.length);
+}
+
+$('rec').onclick = async () => {
+  $('rec').disabled = true;
+  $('play').disabled = $('save').disabled = true;
+  $('report').textContent = '';
+  // phone voice processing would treat heart sounds as noise
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: {
+      echoCancellation: false, noiseSuppression: false, autoGainControl: false, channelCount: 1 } });
+  } catch (e) {
+    $('status').textContent = 'Mic blocked: ' + e.message;
+    $('rec').disabled = false;
+    return;
+  }
+  settings = stream.getAudioTracks()[0].getSettings();
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  await ctx.resume();
+  sampleRate = ctx.sampleRate;
+  const src = ctx.createMediaStreamSource(stream);
+  const proc = ctx.createScriptProcessor(4096, 1, 1);
+  const hp = ctx.createBiquadFilter();
+  hp.type = 'highpass';
+  hp.frequency.value = 25;
+  const lp = ctx.createBiquadFilter();
+  lp.type = 'lowpass';
+  lp.frequency.value = 400;
+  const an = ctx.createAnalyser();
+  an.fftSize = 2048;
+  src.connect(proc);
+  proc.connect(ctx.destination);
+  src.connect(hp);
+  hp.connect(lp);
+  lp.connect(an);
+  chunks = [];
+  const liveBuf = new Float32Array(sampleRate * 3);
+  proc.onaudioprocess = ev => {
+    const d = ev.inputBuffer.getChannelData(0);
+    chunks.push(new Float32Array(d));
+    ev.outputBuffer.getChannelData(0).fill(0);
+  };
+  const tmp = new Float32Array(an.fftSize);
+  let raf;
+  const live = () => {
+    an.getFloatTimeDomainData(tmp);
+    liveBuf.copyWithin(0, tmp.length);
+    liveBuf.set(tmp, liveBuf.length - tmp.length);
+    drawWave($('live'), liveBuf);
+    raf = requestAnimationFrame(live);
+  };
+  live();
+
+  const secs = +$('secs').value, t0 = Date.now();
+  await new Promise(res => {
+    const iv = setInterval(() => {
+      const left = secs - (Date.now() - t0) / 1000;
+      $('status').textContent = left > 0 ? `Recording… ${Math.ceil(left)}s` : 'Processing…';
+      if (left <= 0) {
+        clearInterval(iv);
+        res();
+      }
+    }, 200);
+  });
+
+  cancelAnimationFrame(raf);
+  proc.disconnect();
+  src.disconnect();
+  stream.getTracks().forEach(t => t.stop());
+  const n = chunks.reduce((a, c) => a + c.length, 0);
+  recording = new Float32Array(n);
+  let o = 0;
+  for (const c of chunks) {
+    recording.set(c, o);
+    o += c.length;
+  }
+
+  const filtered = await bandpass(recording, sampleRate);
+  const a = analyze(filtered, sampleRate);
+  drawWave($('filt'), filtered);
+  drawWave($('env'), a.env, '#1565c0');
+  const lowShare = rms(filtered) / (rms(recording) || 1);
+  const verdict = a.periodicity > 0.35 && a.bpm > 40 ? 'Clear beats' : a.periodicity > 0.2 ? 'Weak beats' : 'Mostly noise';
+  $('status').textContent = `${verdict}  ·  ~${Math.round(a.bpm)} bpm`;
+  $('report').textContent = [
+    `beat periodicity: ${a.periodicity.toFixed(2)}  (>0.35 clear, <0.2 noise)`,
+    `estimated heart rate: ${Math.round(a.bpm)} bpm`,
+    `25–400 Hz share of signal: ${(lowShare * 100).toFixed(0)}%`,
+    `raw level (RMS): ${rms(recording).toExponential(2)}`,
+    `sample rate: ${sampleRate} Hz, length ${(recording.length / sampleRate).toFixed(1)} s`,
+    `mic settings applied: ${JSON.stringify(settings)}`,
+    `browser: ${navigator.userAgent}`,
+  ].join('\n');
+  window._last = { a, lowShare, verdict };
+  $('rec').disabled = false;
+  $('play').disabled = $('save').disabled = false;
+};
+
+$('play').onclick = async () => {
+  const f = await bandpass(recording, sampleRate);
+  let m = 1e-9;
+  for (const v of f) m = Math.max(m, Math.abs(v));
+  const p = new AudioContext({ sampleRate }), b = p.createBuffer(1, f.length, sampleRate);
+  b.copyToChannel(f.map(v => v / m * 0.9), 0);
+  const s = p.createBufferSource();
+  s.buffer = b;
+  s.connect(p.destination);
+  s.start();
+};
+
+function wav(data, sr) {
+  const buf = new ArrayBuffer(44 + data.length * 2), v = new DataView(buf);
+  const w = (o, s) => [...s].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  w(0, 'RIFF');
+  v.setUint32(4, 36 + data.length * 2, true);
+  w(8, 'WAVE');
+  w(12, 'fmt ');
+  v.setUint32(16, 16, true);
+  v.setUint16(20, 1, true);
+  v.setUint16(22, 1, true);
+  v.setUint32(24, sr, true);
+  v.setUint32(28, sr * 2, true);
+  v.setUint16(32, 2, true);
+  v.setUint16(34, 16, true);
+  w(36, 'data');
+  v.setUint32(40, data.length * 2, true);
+  for (let i = 0; i < data.length; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, data[i])) * 0x7fff, true);
+  return new Blob([buf], { type: 'audio/wav' });
+}
+
+$('save').onclick = async () => {
+  const device = /iPhone|iPad/.test(navigator.userAgent) ? 'iphone' : /Android/.test(navigator.userAgent) ? 'android' : 'other';
+  const stamp = new Date().toISOString().slice(5, 19).replace(/[-:T]/g, '');
+  const name = `${stamp}_${device}_${$('person').value}_${$('position').value}_${$('method').value}_${$('spot').value}`;
+  const meta = { ...window._last, env: undefined, spot: $('spot').value, method: $('method').value, person: $('person').value,
+                 position: $('position').value, device, settings, ua: navigator.userAgent, sampleRate };
+  const r = await fetch(`/upload?name=${encodeURIComponent(name)}`, { method: 'POST', body: wav(recording, sampleRate) });
+  await fetch(`/upload?name=${encodeURIComponent(name)}&meta=1`, { method: 'POST', body: JSON.stringify(meta, null, 2) });
+  $('status').textContent = r.ok ? `Saved as ${await r.text()}` : 'Upload failed';
+};
+
+const SPOT_TEXT = {
+  PV: "Find your collarbone and your breastbone, the flat bone down the middle of your chest. Just below the collarbone, press the phone against the breastbone's left edge (your heart side), not out on the muscle.",
+  TV: 'Find the V at the bottom of your breastbone, where the ribs meet. Go about two finger-widths up, and press the phone just off the left edge of the bone.',
+  MV: 'Below your left nipple. Lift the pec and slide the bottom edge of the phone under it, onto the ribs.',
+  THIGH: 'Press the phone on the front of your thigh, as firmly as on your chest. There is no heartbeat here, so this records only the noise of the phone on skin.',
+  AIR: "Hold the phone still in the air, not touching anything, in the same room. This records the room's background noise.",
+};
+function showSpot() {
+  document.querySelectorAll('.spot').forEach(g => g.classList.toggle('current', g.dataset.spot === $('spot').value));
+  $('spot-text').textContent = SPOT_TEXT[$('spot').value];
+}
+$('spot').onchange = showSpot;
+showSpot();
+</script>
+</body>
+</html>

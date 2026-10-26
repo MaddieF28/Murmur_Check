@@ -1,0 +1,41 @@
+{
+  "name": "pcall_v2_gru_noise",
+  "cutoff": 0.4995420277118683,
+  "kfold_option2": {
+    "children": 650,
+    "murmur_children": 134,
+    "sensitivity": 0.8881,
+    "specificity": 0.9264,
+    "accuracy": 0.9185,
+    "caught": 119,
+    "cleared": 478
+  },
+  "ohh_2025": {
+    "phone_v2": {
+      "option2": {
+        "children": 1002,
+        "murmur_children": 37,
+        "sensitivity": 0.7027,
+        "specificity": 0.801,
+        "accuracy": 0.7974,
+        "caught": 26,
+        "cleared": 773
+      },
+      "option2_ranking": 0.8061,
+      "all_spots_ranking": 0.8135
+    },
+    "clean": {
+      "option2": {
+        "children": 1002,
+        "murmur_children": 37,
+        "sensitivity": 0.7838,
+        "specificity": 0.7295,
+        "accuracy": 0.7315,
+        "caught": 29,
+        "cleared": 704
+      },
+      "option2_ranking": 0.8267,
+      "all_spots_ranking": 0.8284
+    }
+  }
+}

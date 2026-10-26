@@ -1,0 +1,238 @@
+[
+ {
+  "path": "data/pascal/normal/201101070538.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201101151127.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201102081152.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201102081321.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201102201230.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201102260502.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201103090635.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201103101140.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201103140132.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201103140135.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201103140822.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201103151912.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201103170121.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201104122156.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201104141251.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201105011626.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201105021654.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201105021804.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201105151450.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201106141148.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201106210943.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201106221418.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201106221450.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201108011112.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201108011114.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201108011115.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/normal/201108011118.wav",
+  "label": 0
+ },
+ {
+  "path": "data/pascal/murmur/201101051104.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201101051108.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201101051114.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201101180902.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201102051443.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201102052338.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201103291548.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201104241315.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201106141148.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222221.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222223.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222224.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222226.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222227.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222231.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222232.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222233.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222235.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222236.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222237.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222238.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222242.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222243.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222245.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222246.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222248.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222251.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222252.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222253.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222255.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222256.wav",
+  "label": 1
+ },
+ {
+  "path": "data/pascal/murmur/201108222258.wav",
+  "label": 1
+ }
+]
