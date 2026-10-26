@@ -8,7 +8,7 @@ const MIN_CLARITY = 0.25;
 const MIN_LOW_SHARE = 0.7;
 const SPOTS = [
   { key: 'PV', title: 'Top of the breastbone',
-    text: 'Feel the collarbone, go 1 in to 2 in down, and then press against the bones of your ribs.' },
+    text: 'Feel the collarbone, go 1 to 2 inches down, and then press against the bones of your ribs.' },
   { key: 'TV', title: 'Bottom of the breastbone',
     text: 'Find the V at the bottom where the ribs meet, go 1 inch up, and press against the bone.' },
   { key: 'MV', title: 'Under the chest muscle',

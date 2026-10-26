@@ -59,7 +59,7 @@ body[data-screen="home"] main { padding-bottom: 0; }
 .cover a { color: #fff; }
 .cover .fine { color: rgba(255, 255, 255, .78); }
 
-.warn { background: #fff; border-left: 4px solid var(--brand); border-radius: 4px; padding: 12px 14px; margin: 16px 0 4px; }
+.warn { color: var(--brand); font-size: .9rem; font-weight: 600; margin: 16px 0 4px; }
 
 /* where to record */
 
