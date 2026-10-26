@@ -161,7 +161,7 @@ dialog { border: 0; border-radius: 16px; padding: 22px 20px 12px; width: min(360
 dialog::backdrop { background: rgba(29, 27, 26, .45); }
 dialog h2 { margin-top: 0; }
 dialog button:focus:not(:focus-visible) { outline: none; }
-.case-note { color: var(--brand); font-weight: 600; margin: 12px 0 4px; }
+.case-note { background: var(--brand); color: #fff; font-weight: 600; padding: 10px 14px; margin: 12px 0 24px; }
 ol.tips { color: var(--ink); font-weight: 600; }
 #about h2 { margin-top: 24px; }
 .sweep .trace { position: relative; height: 150px; margin: 0 20px; }
